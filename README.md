@@ -1,4 +1,4 @@
-This is a little experiment I ran to cluster economics articles based on running the [Latent Dirichlet Allocation](http://en.wikipedia.org/wiki/Latent_Dirichlet_allocation) algorithm on their titles and abstracts.
+This is a little experiment I ran to cluster economics articles by running the [Latent Dirichlet Allocation](http://en.wikipedia.org/wiki/Latent_Dirichlet_allocation) algorithm on their titles and abstracts.
 
 ## Dependencies
 
@@ -15,4 +15,4 @@ The clustering code expects the data to live in a sqlite database `repec.sqlite`
     $ ./readrepec.py repec.tar.xz repec.sqlite
     $ ./add_jnames.py repec.sqlite
 
-The actual fitting of the LDA model is done by the IPython notebook `classify.ipynb`. On runnin it it creates HTML files `index.html` and `cluster[nn].html` containing links to the clustered articles.
+The actual fitting of the LDA model is done by the IPython notebook `classify.ipynb`. On being run, it creates HTML files `index.html` and `cluster[nn].html` containing links to the clustered articles.
