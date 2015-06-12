@@ -6,7 +6,7 @@ The code is in Python 3 and some of it is in the form of an IPython notebook. Th
 
 ## Data
 
-The data consists of bibliographic data for selected journals downloaded from [RePec](http://repec.org/). The tree under ftp://ftp.repec.org/opt/amf/RePEc/ conatins metadata in the [AMF](http://amf.openlib.org/doc/ebisu.html) format. The filer `repec.tar.xz` in the repository contains a mirror of selected parts of this tree.
+The data consists of bibliographic data for selected journals downloaded from [RePec](http://repec.org/). The tree under ftp://ftp.repec.org/opt/amf/RePEc/ conatins metadata in the [AMF](http://amf.openlib.org/doc/ebisu.html) format. The file `repec.tar.xz` in the repository contains a mirror of selected parts of this tree.
 
 ## Running
 
