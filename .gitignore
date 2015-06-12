@@ -1,0 +1,4 @@
+*.html
+.ipynb_checkpoints
+repec.sqlite
+
