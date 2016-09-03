@@ -19,17 +19,21 @@ def get_series(s):
     
 if __name__=="__main__":
     dbcon = sqlite3.connect(sys.argv[2])
-    dbcon.execute("""CREATE TABLE IF NOT EXISTS article 
+    dbcon.execute("""DROP TABLE IF EXISTS article""")
+    dbcon.execute("""CREATE TABLE article 
                         (id TEXT PRIMARY KEY, title TEXT,abstract TEXT, 
                         series TEXT,issue TEXT,volume TEXT,date TEXT,url TEXT,
                         authors TEXT)""")
     dbcon.execute("""CREATE INDEX IF NOT EXISTS dateix ON article (date)""")
     with tarfile.open(sys.argv[1],"r:xz") as tar:
+        err_count = 0
         for item in tar:
             try:
                 if not item.isfile():
                     continue
                 path = item.name
+                if not path.endswith(".xml"):
+                  continue
                 tree = lxml.etree.parse(tar.extractfile(item))
                 text = tree.xpath("amf:text",namespaces=NS)[0]
                 ident = text.get("id")
@@ -44,9 +48,15 @@ if __name__=="__main__":
                 dbcon.execute("INSERT INTO article VALUES (?,?,?,?,?,?,?,?,?)",
                           (ident,title,abstract,series,issue,volume,date,url,authors))
                 print(ident)
-            except (IndexError,sqlite3.Error) as e:
-                print("Failed "+path)
-                print(e)
+            except (IndexError
+                    ,lxml.etree.Error
+                    ,sqlite3.Error) as e:
+                print("Failed "+path, file=sys.stderr)
+                print(e, file=sys.stderr)
+                err_count += 1
+    if err_count:
+      print("Total errors = {}".format(err_count)
+            ,file=sys.stderr)
     dbcon.commit()        
     dbcon.close()
                                 
